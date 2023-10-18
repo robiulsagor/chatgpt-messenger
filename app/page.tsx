@@ -1,20 +1,24 @@
+"use client"
+
 import { BiSun } from "react-icons/bi"
 import { HiOutlineBolt } from "react-icons/hi2"
 import { IoWarningOutline } from "react-icons/io5"
+import { signIn } from "next-auth/react"
 
 
 export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen text-white">
-      <h1 className="text-5xl font-bold mb-20">MyGPT</h1>
+      <h1 className="text-5xl max-md:text-4xl  font-bold mb-20 max-sm:mb-10 max-md:mb-12">MyGPT</h1>
 
-      <div className="flex space-x-3 text-center">
+      <div className="flex space-x-3 text-center max-sm:text-[14px]">
 
         <div>
           <div className="flex flex-col items-center justify-center mb-5 gap-1">
-            <BiSun className="h-8 w-8" />
+            <BiSun className="h-8 w-8 max-sm:h-4 max-sm:w-4" />
             <h2>Examples</h2>
+            <button onClick={() => signIn()}>Login</button>
           </div>
 
           <div className="space-y-2">
@@ -26,7 +30,7 @@ export default function Home() {
 
         <div>
           <div className="flex flex-col items-center justify-center mb-5 gap-1">
-            <HiOutlineBolt className="h-8 w-8" />
+            <HiOutlineBolt className="h-8 w-8 max-sm:h-4 max-sm:w-4" />
             <h2>Capabilities</h2>
           </div>
 
@@ -39,7 +43,7 @@ export default function Home() {
 
         <div>
           <div className="flex flex-col items-center justify-center mb-5 gap-1">
-            <IoWarningOutline className="h-8 w-8" />
+            <IoWarningOutline className="h-8 w-8 max-sm:h-4 max-sm:w-4" />
             <h2>Limitations</h2>
           </div>
 

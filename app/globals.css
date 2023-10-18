@@ -6,4 +6,8 @@
     .infoText {
         @apply p-4 bg-gray-700/50 rounded-lg max-w-[300px]
     }
+
+    .chatRow {
+        @apply py-3 px-5 flex items-center justify-center text-sm rounded-lg space-x-2 cursor-pointer text-gray-300
+    }
 }
