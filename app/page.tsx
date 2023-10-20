@@ -1,9 +1,7 @@
-"use client"
 
 import { BiSun } from "react-icons/bi"
 import { HiOutlineBolt } from "react-icons/hi2"
 import { IoWarningOutline } from "react-icons/io5"
-import { signIn } from "next-auth/react"
 
 
 export default function Home() {
@@ -18,7 +16,6 @@ export default function Home() {
           <div className="flex flex-col items-center justify-center mb-5 gap-1">
             <BiSun className="h-8 w-8 max-sm:h-4 max-sm:w-4" />
             <h2>Examples</h2>
-            <button onClick={() => signIn()}>Login</button>
           </div>
 
           <div className="space-y-2">

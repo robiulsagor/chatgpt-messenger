@@ -1,18 +1,45 @@
-import React from 'react'
+"use client"
+
+import { signOut, useSession } from 'next-auth/react'
+import { useCollection, useCollectionData, useDocument } from 'react-firebase-hooks/firestore';
 import NewChat from './NewChat'
+import { collection, getDoc, getDocs, doc } from 'firebase/firestore';
+import { db } from '@/firebase';
+import { useEffect } from 'react';
+import ChatRow from './ChatRow';
+
 
 const Sidebar = () => {
+    const { data: session } = useSession()
+
+    const [chats, loading, error] = useCollection(
+        session && collection(db, "users", session?.user?.email!, "chats")
+    )
+
+
     return (
-        <div className=' p-2 flex flex-col h-screen'>
-            <div className='flex-1'>
+        <div className=' p-2 flex flex-col h-screen  overflow-y-auto relative'>
+            <div className='flex-1 mb-20'>
                 <div>
                     <NewChat />
-
+                    {chats?.docs.map(chat => (
+                        <ChatRow key={chat.id} id={chat.id} />
+                    ))}
                     <div>
                         {/* Model selection */}
                     </div>
                 </div>
             </div>
+
+            {session && (
+                <div className='backdrop-blur-sm fixed bottom-0 left-0 right-0 w-[140px] md:w-[240px] py-3'>
+
+                    <img onClick={() => signOut()}
+                        src={session?.user?.image!} alt="user image"
+                        className='rounded-full w-12 h-12 mx-auto mb-2 cursor-pointer hover:opacity-50 transition-all'
+                    />
+                </div>
+            )}
         </div>
     )
 }
