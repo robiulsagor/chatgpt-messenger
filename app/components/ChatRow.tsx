@@ -8,6 +8,7 @@ import { useCollection } from 'react-firebase-hooks/firestore'
 import { HiTrash } from 'react-icons/hi2'
 import { IoChatboxOutline, } from 'react-icons/io5'
 import { doc, deleteDoc } from "firebase/firestore";
+import toast from 'react-hot-toast'
 
 
 type Props = {
@@ -21,9 +22,7 @@ const ChatRow = ({ id }: Props) => {
     const { data: session } = useSession()
 
     const [messages, loading, error] = useCollection(
-        query(collection(db, "users", session?.user?.email!, "chats", id, "messages"),
-            orderBy("createdAt", "asc")
-        )
+        collection(db, "users", session?.user?.email!, "chats", id, "messages")
     )
 
     useEffect(() => {
@@ -34,6 +33,7 @@ const ChatRow = ({ id }: Props) => {
 
     const deleteData = async () => {
         await deleteDoc(doc(db, "users", session?.user?.email!, "chats", id));
+        toast.success("Chat Deleted!")
         router.push('/')
     }
 
