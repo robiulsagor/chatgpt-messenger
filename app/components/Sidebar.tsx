@@ -6,6 +6,7 @@ import NewChat from './NewChat'
 import { collection, getDoc, getDocs, doc, query, orderBy } from 'firebase/firestore';
 import { db } from '@/firebase';
 import ChatRow from './ChatRow';
+import ModelSelection from './ModelSelection';
 
 
 const Sidebar = () => {
@@ -21,11 +22,23 @@ const Sidebar = () => {
             <div className='flex-1 mb-20'>
                 <div>
                     <NewChat />
-                    {chats?.docs.map(chat => (
-                        <ChatRow key={chat.id} id={chat.id} />
-                    ))}
-                    <div>
+
+                    <div className='hidden sm:inline'>
                         {/* Model selection */}
+                        <ModelSelection />
+                    </div>
+
+                    <div className='flex flex-col space-y-2 my-2'>
+                        {loading && (
+                            <div className='text-white text-center animate-pulse'>
+                                <p>Loading Chats...</p>
+                            </div>
+                        )}
+
+
+                        {chats?.docs.map(chat => (
+                            <ChatRow key={chat.id} id={chat.id} />
+                        ))}
                     </div>
                 </div>
             </div>

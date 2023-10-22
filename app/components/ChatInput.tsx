@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 import { IoPaperPlane } from "react-icons/io5";
+import ModelSelection from "./ModelSelection";
+import useSWR from "swr"
 
 type Id = {
     chatId: string
@@ -16,7 +18,9 @@ const ChatInput = ({ chatId }: Id) => {
     const [prompt, setPrompt] = useState("")
     const { data: session } = useSession()
 
-    const model = "text-davinci-003"
+    const { data: model } = useSWR("model", {
+        fallbackData: 'text-davinci-003'
+    })
 
     const sendMessage = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -54,9 +58,6 @@ const ChatInput = ({ chatId }: Id) => {
                 id: notification
             })
         }
-
-        console.log(response.data);
-
     }
 
     return (
@@ -75,6 +76,10 @@ const ChatInput = ({ chatId }: Id) => {
                     <IoPaperPlane className="text-gray-100 h-4 w-4" />
                 </button>
             </form>
+
+            <div className="md:hidden">
+                <ModelSelection />
+            </div>
         </div>
     )
 }
